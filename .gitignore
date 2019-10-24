@@ -125,3 +125,6 @@ dmypy.json
 # PyCharm stuff:
 .idea/
 *.jpg
+
+# Treehouse stuff:
+improve_django_v3.zip
