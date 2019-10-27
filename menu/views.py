@@ -24,12 +24,14 @@ def menu_detail(request, pk):
     menu = Menu.objects.get(pk=pk)
     return render(request, 'menu/menu_detail.html', {'menu': menu})
 
+
 def item_detail(request, pk):
     try: 
         item = Item.objects.get(pk=pk)
     except ObjectDoesNotExist:
         raise Http404
     return render(request, 'menu/detail_item.html', {'item': item})
+
 
 def create_new_menu(request):
     if request.method == "POST":
