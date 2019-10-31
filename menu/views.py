@@ -8,15 +8,22 @@ from .models import *
 from .forms import *
 
 
+def nonesorter(a):
+    if not a.expiration_date:
+        return date.min
+    return a.expiration_date
+
+
 def menu_list(request):
     all_menus = Menu.objects.all()
     menus = []
     for menu in all_menus:
-        if menu.expiration_date:
-            if menu.expiration_date >= timezone.now():
-                menus.append(menu)
+        if menu.expiration_date is None:
+            menus.append(menu)
+        elif menu.expiration_date >= date.today():
+            menus.append(menu)
 
-    menus = sorted(menus, key=attrgetter('expiration_date'))
+    menus = sorted(menus, key=nonesorter)
     return render(request, 'menu/list_all_current_menus.html', {'menus': menus})
 
 
@@ -44,6 +51,7 @@ def create_new_menu(request):
     else:
         form = MenuForm()
     return render(request, 'menu/menu_edit.html', {'form': form})
+
 
 def edit_menu(request, pk):
     menu = get_object_or_404(Menu, pk=pk)
