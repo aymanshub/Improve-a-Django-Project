@@ -1,11 +1,10 @@
 from django.db import models
-from django.utils import timezone
 from _datetime import date
 
 
 class Menu(models.Model):
-    season = models.CharField(max_length=20)
-    items = models.ManyToManyField('Item', related_name='items')
+    season = models.CharField(max_length=20, blank=False)
+    items = models.ManyToManyField('Item', related_name='items', blank=False)
     created_date = models.DateField(default=date.today)
     expiration_date = models.DateField(blank=True, null=True)
 

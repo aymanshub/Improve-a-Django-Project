@@ -14,8 +14,6 @@ def update_dates(apps, schema_editor):
     print("********One step before the loop")
     for menu in Menu.objects.all():
         print("working on menu {}".format(menu.id))
-        # if not menu.created_date:
-        #     menu.created_date = timezone.now().date()
         print("created_date is: {}".format(menu.created_date))
         dt = menu.created_datetime
         menu.created_date = date(dt.year, dt.month, dt.day)
